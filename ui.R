@@ -17,14 +17,14 @@ shinyUI(navbarPage(inverse = T,"StrideSeqR",
                               sidebarPanel(
                                 #actionButton("go", "Go"),
                                 #numericInput("n", "n", 50),
-                                fileInput( "RNAfile", "Please Choose Your Paired Fastq Files", multiple = T),
+                                fileInput( "SeqFile", "Please Choose Sequenc text file", multiple = T),
                                 #fileInput( "RPFfile", "Please Choose Footprinting BAM Files", multiple = T),
                                 #fileInput( "ANNOfile", "Please Choose Annotation GFF3 File", multiple = T),
                                 #fileInput( "FASTAfile", "Choose FASTA File (Optional)", multiple = T),
                                 #fileInput( "TESTfile1", "Choose Reference RNA File (Optional)", multiple = T),
                                 #fileInput( "TESTfile2", "Choose Reference RPF File (Optional)", multiple = T),
                                 #checkboxInput("prepro", "Preprocess")
-                                actionButton("prepro", "Preprocess",icon("paper-plane"), 
+                                actionButton("file_process", "Preprocess",icon("paper-plane"), 
                                              style="color: #fff; background-color: #337ab7; border-color: #2e6da4")
                                 #submitButton("Submit")
                               ),
@@ -34,6 +34,7 @@ shinyUI(navbarPage(inverse = T,"StrideSeqR",
                                 span("Welcome to ", strong("SequenceSuite") , ", a suite of tools for sequence comparison, analysis, and visualizationg"),
                                 p("Get started by uploading a txt file of sequences (one sequence per row) and hitting ", span("Preprocess.", style = "color:blue")),
                                 p("Once you recieve conifrmation below that your file has been successfully uploaded and processed, you can utilize the analysis tools listed in the toolbar above."),
+                                reactableOutput(outputId = 'summary_table')
                                 #hr(),
                                 #textOutput("upload"),
                                 #textOutput("process"),
