@@ -34,7 +34,8 @@ shinyUI(navbarPage(inverse = T,"StrideSeqR",
                                 span("Welcome to ", strong("SequenceSuite") , ", a suite of tools for sequence comparison, analysis, and visualizationg"),
                                 p("Get started by uploading a txt file of sequences (one sequence per row) and hitting ", span("Preprocess.", style = "color:blue")),
                                 p("Once you recieve conifrmation below that your file has been successfully uploaded and processed, you can utilize the analysis tools listed in the toolbar above."),
-                                reactableOutput(outputId = 'summary_table')
+                                dataTableOutput(outputId = 'summary_table1'),
+                                reactableOutput(outputId = 'summary_table2')
                                 #hr(),
                                 #textOutput("upload"),
                                 #textOutput("process"),
