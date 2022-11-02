@@ -12,6 +12,7 @@ library(ggplot2)
 library(reshape2)
 library(cowplot)
 library(ggpubr)
+library(reactable)
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
   
@@ -23,6 +24,22 @@ shinyServer(function(input, output) {
       tab <- tab[,-1]
       selectInput('comp_tissue_selector', 'Choose Tissue of Interest', colnames(tab), selected = colnames(tab), multiple = TRUE)
     })})
+  
+  get_seqs <- eventReactive(input$file_process, {
+    fil <- input$SeqFile
+    tab <- read.table(fil$datapath, header = T)
+    tab <- as.character(tab[,1])
+    return(tab)
+  })
+  
+  output$summary_table <- renderReactable({
+    tab <- get_seqs()
+    df <- data.frame(table(tab))
+    df$Length <- nchar(as.character(df$tab))
+    colnames(df) <- c('Sequence', 'Frequency', 'Length')
+    reactable(df)
+    
+  })
   
   heatmap_plot <- eventReactive(input$comp_button, {
     fil <- input$comp_dataset
