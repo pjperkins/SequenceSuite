@@ -32,12 +32,25 @@ shinyServer(function(input, output) {
     return(tab)
   })
   
-  output$summary_table <- renderReactable({
+  output$summary_table2 <- renderReactable({
     tab <- get_seqs()
     df <- data.frame(table(tab))
     df$Length <- nchar(as.character(df$tab))
     colnames(df) <- c('Sequence', 'Frequency', 'Length')
     reactable(df)
+    
+  })
+  output$summary_table1 <- renderDataTable({
+    tab <- get_seqs()
+    num <- length(tab)
+    uni <- length(unique(tab))
+    minchar <- min(nchar(as.character(df$tab)))
+    maxchar <- max(nchar(as.character(df$tab)))
+    medchar <- median(nchar(as.character(df$tab)))
+    sumtab <- data.frame(num, uni, minchar, medchar, maxchar)
+    
+    colnames(sumtab) <- c('Number of Sequences', 'Number of Unique Sequences', 'Minimum Length', 'Median Length', 'Maxumum Length')
+    print(sumtab)
     
   })
   
